@@ -23,4 +23,4 @@ For more examples and ideas, visit:
  ############## TASK ###################
 
  docker inspect <u_container_id> - вывод информации о контейнере
- docker inspect <u_image_id> - вывол информации о образе 
+ docker inspect <u_image_id> - вывод информации о образе 
