@@ -23,4 +23,11 @@ For more examples and ideas, visit:
  ############## TASK ###################
 
  docker inspect <u_container_id> - вывод информации о контейнере
- docker inspect <u_image_id> - вывод информации о образе 
+ docker inspect <u_image_id> - вывод информации о образе
+ 
+REPOSITORY                  TAG                 IMAGE ID            CREATED             SIZE
+isaidahev/ubuntu-tmp-file   latest              cf9e8f4a20e2        2 minutes ago       108MB
+reddit                      latest              8f1aa895df1f        2 days ago          682MB
+ubuntu                      16.04               0458a4468cbc        2 weeks ago         112MB
+tehbilly/htop               latest              692db5793206        4 weeks ago         6.85MB
+nginx                       latest              3f8a4339aadd        7 weeks ago         108MB
