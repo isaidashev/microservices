@@ -1,4 +1,38 @@
 ---
+HW 15
+---
+1. Создание docker host
+
+* Создал новый проект в GCE docker
+`gcloud init` - инициализировать новый проект
+`gcloud auth` - войти в профиль google
+* Создали докер машин в Google
+`docker-machine create --driver google --google-project  docker-181710 --google-zone europe-west1-b --google-machine-type g1-small --google-machine-image $(gcloud compute images list --filter ubuntu-1604-lts --uri)   docker-host
+`
+Не забыть переключиться на использование удаленной докер машины eval $(docker-machine env docker-host) Не ЗАБЫТЬ ЗАПУСКАТЬ В КАЖДОМ ТЕРМИНАЛЕ!!!
+
+2. Создание своего образа
+
+* В корне проекта созданы файлы:
+- Dockerfile - текстовое описание нашего образа
+- mongod.conf - преподготовленный конфиг для mongodb
+- db_config - переменная с адрессом mongodb
+- start.sh - запуск приложения
+* `docker build -t reddit:latest .` - cоздание образа -t - это тег.
+* `docker run --name reddit -d --network=host reddit:latest` - запуск контейнера
+
+Команды:
+
+`docker images` -a - список всех образов
+`docker-machine ls` - список Docker Machine
+
+3. Работа с DockerHub
+
+`docker login` - авторизация в DockerHub
+`docker tag reddit:latest <your-login>/otus-reddit:1.0` - определение тега для образа
+`docker push <your-login>/otus-reddit:1.0` - выгрузка в DockerHub
+
+---
 HW 14
 ---
 Установил докер. Загрузил несколько докер образов и запустил тестовые контейнеры. Изучил команды
