@@ -24,7 +24,10 @@ For more examples and ideas, visit:
 
  docker inspect <u_container_id> - вывод информации о контейнере
  docker inspect <u_image_id> - вывод информации о образе
- 
+
+ Разница в том что на базе образа создается контейнер. У контейнера есть слой
+ файловый системы который изменяется по отношению к образу. Образ предназначен только для создания контейнеров.
+
 REPOSITORY                  TAG                 IMAGE ID            CREATED             SIZE
 isaidahev/ubuntu-tmp-file   latest              cf9e8f4a20e2        2 minutes ago       108MB
 reddit                      latest              8f1aa895df1f        2 days ago          682MB
