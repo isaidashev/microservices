@@ -52,12 +52,12 @@ isaidashev/ui        2.0                 4330a420f28d        About an hour ago  
 
 Используя схлопывание `docker export 3e39c97956b49a | docker import - isaidashev/ui:5` удалось пожать образ:
 
-`
+```
 isaidashev/ui        5                   536219ce1ed0        10 seconds ago      209MB
 isaidashev/ui        4.0                 3f8d0a7fe129        7 seconds ago       210MB
 isaidashev/ui        3.0                 7566addd4575        2 minutes ago       263MB
 isaidashev/ui        2.0                 4330a420f28d        About an hour ago   455MB
-`
+```
 
 ---
 HW 15
