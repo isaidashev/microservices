@@ -17,8 +17,8 @@ RUN apk update && apk add --no-cache \
     build-base\
     libssl1.0 \
     libc6-compat
-RUN gem install bundler --version "$BUNDLER_VERSION"
-RUN bundler config --global build.nokogiri --use-system-libraries && rm -r /root/.gem/
+    && gem install bundler --version "$BUNDLER_VERSION" \
+    && bundler config --global build.nokogiri --use-system-libraries
 
 
 ENV APP_HOME /app
