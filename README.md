@@ -1,3 +1,35 @@
+___
+HW 16
+___
+
+* Образ для сервисного приложения
+* Оптимизация работы докер образа
+* Запуск работы приложения на основе Докер образов
+* Разбить приложение на несколько компонент
+
+* Разбить наше приложение на несколько компонент
+* Запустить наше микросервисное приложение
+
+1. Создали bridge-сеть для контейнеров, так как сетевые алиасы не работают в сети по умолчанию
+2. Запустили контейнеры в сети
+3. Добавили сетевые контейнеры контейнерам
+
+Пример:
+
+`docker run -d --network=reddit --network-alias=comment isaidashev/comment:1.0`
+
+
+## Дополнительное задание:
+
+Для изменения сетевого алиаса контейнера использовал опцию `--network-alias=post_db_new`, а для переопределения переменых `-e POST_SERVICE_HOST="post_new"`
+
+Пример:
+
+`docker run -d --network=reddit --network-alias=post_db_new --network-alias=comment_db_new mongo:latest
+docker run -d --network=reddit --network-alias=post_new -e POST_DATABASE_HOST="post_db_new" isaidashev/post:1.0
+docker run -d --network=reddit --network-alias=comment_new -e COMMENT_DATABASE_HOST="comment_db_new" isaidashev/comment:1.0
+docker run -d --network=reddit -p 9292:9292 -e POST_SERVICE_HOST="post_new" -e COMMENT_SERVICE_HOST="comment_new" isaidashev/ui:1.0`
+
 ---
 HW 15
 ---
