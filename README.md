@@ -35,7 +35,7 @@ brew install docker-compose
 
 * Собрать образы приложения reddit с помощью docker-compose
 
-Docker-compose поддерживает интерполяцию (подстановку) переменных окружения. `export USERNAME=<your-login>`
+Docker-compose поддерживает интерполяцию (подстановку) переменных окружения. `export USERNAME=<your-login>` или использовать файл с расширением `.env`
 
 * Запустить приложение reddit с помощью docker-compose
 
@@ -47,6 +47,25 @@ docker-compose up -d
 ```
 docker-compose ps
 ```
+Для определения названия сети и назначения ip адресов возможности версии  3.5:
+
+```
+networks:
+  back_net:
+    name: back_net
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        -
+          subnet: 10.0.2.0/24
+```
+
+## Задание со *
+Название проекта создается на основе названия папки
+Название проекта можно задать `docker-compose -p <PROJECT>`
+
+
 
 ---
 HW 16
