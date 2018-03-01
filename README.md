@@ -1,7 +1,75 @@
-___
-HW 16
-___
+---
+HW17
+---
+1. Работа с сетью
 
+### None, Host, bridge
+
+Host - два сервиса на могут запускаться на одном порту.
+Docker при инициализации контейнера может подключить к нему только 1 сеть
+
+Запуск проекта в двух bridge сетях
+
+`docker network create back_net --subnet=10.0.2.0/24`
+`docker network create front_net --subnet=10.0.1.0/24`
+
+```
+docker run -d --network=back_net --network-alias=post_db --network-alias=comment_db --name mongo_db mongo:latest
+docker run -d --network=back_net --network-alias=post --name post isaidashev/post:1.0
+docker run -d --network=back_net --network-alias=comment --name comment isaidashev/comment:1.0
+docker run -d --network=front_net -p 9292:9292 --name ui isaidashev/ui:2.0
+```
+
+
+Команды:
+`sudo ip netns` - просмотр сущетвующих nwt-namespace
+`ip netns exec <namespace> <command>` - выполнять команды в выбранном namespace
+`docker network connect <network> <container>` - подключить сеть к контейнеру
+
+
+2. Docker-Compose
+
+* Установка docker-compose
+
+brew install docker-compose
+
+* Собрать образы приложения reddit с помощью docker-compose
+
+Docker-compose поддерживает интерполяцию (подстановку) переменных окружения. `export USERNAME=<your-login>` или использовать файл с расширением `.env`
+
+* Запустить приложение reddit с помощью docker-compose
+
+Запуск
+```
+docker-compose up -d
+```
+Список запущенных контейнеров
+```
+docker-compose ps
+```
+Для определения названия сети и назначения ip адресов возможности версии  3.5:
+
+```
+networks:
+  back_net:
+    name: back_net
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        -
+          subnet: 10.0.2.0/24
+```
+
+## Задание со *
+Название проекта создается на основе названия папки
+Название проекта можно задать `docker-compose -p <PROJECT>`
+
+
+
+---
+HW 16
+---
 
 1. Создали bridge-сеть для контейнеров, так как сетевые алиасы не работают в сети по умолчанию
 2. Запустили контейнеры в сети
