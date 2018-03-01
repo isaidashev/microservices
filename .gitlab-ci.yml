@@ -10,7 +10,7 @@ build_job:
   script:
     - echo 'Building'
 before_script:
-  - apk --update add ruby
+  - apk --update add ruby ruby-rdoc
   - gem install bundler
   - cd reddit
   - bundle install
