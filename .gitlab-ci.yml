@@ -2,11 +2,16 @@ stages:
   - build
   - test
   - deploy
+variables:
+  DATABASE_URL: 'mongodb://mongo/user_posts'
 
 build_job:
   stage: build
   script:
     - echo 'Building'
+before_script:
+  - cd reddit
+  - bundle install
 
 test_unit_job:
   stage: test
