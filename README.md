@@ -1,3 +1,64 @@
+___
+HW 16
+___
+
+
+1. Создали bridge-сеть для контейнеров, так как сетевые алиасы не работают в сети по умолчанию
+2. Запустили контейнеры в сети
+3. Добавили сетевые алиасы к контейнерам
+
+Пример:
+
+`docker run -d --network=reddit --network-alias=comment isaidashev/comment:1.0`
+
+4. Использование volume
+
+Остановить запущенные контейнеры:
+`docker kill $(docker ps -q)`
+
+Создать volume:
+`docker volume create reddit_db`
+
+Подключить образ через опцию -v:
+`docker run -d --network=reddit --network-alias=post_db_new --network-alias=comment_db_new -v reddit_db:/data/db mongo:latest`
+
+
+## Дополнительное задание:
+
+1. Для изменения сетевого алиаса контейнера использовал опцию `--network-alias=post_db_new`, а для переопределения переменых `-e POST_SERVICE_HOST="post_new"`
+
+Пример:
+
+```
+docker run -d --network=reddit --network-alias=post_db_new --network-alias=comment_db_new mongo:latest
+docker run -d --network=reddit --network-alias=post_new -e POST_DATABASE_HOST="post_db_new" isaidashev/post:1.0
+docker run -d --network=reddit --network-alias=comment_new -e COMMENT_DATABASE_HOST="comment_db_new" isaidashev/comment:1.0
+docker run -d --network=reddit -p 9292:9292 -e POST_SERVICE_HOST="post_new" -e COMMENT_SERVICE_HOST="comment_new" isaidashev/ui:1.0
+```
+
+2. Попробывал собрать несколько образов используя  ruby:alpine, alpine.
+
+Вывод команды docker image:
+```
+isaidashev/ui        4.0                 3f8d0a7fe129        7 seconds ago       210MB
+isaidashev/ui        3.0                 7566addd4575        2 minutes ago       263MB
+isaidashev/ui        2.0                 4330a420f28d        About an hour ago   455MB
+```
+3. Еще больше размер уменьшить не получилось. Как вариант можно не копировать ruby приложение в образ а собирать его после запуска контейнера.
+
+Пример конфигов:
+* .. ui/Dockerfile.alpine
+* .. ui/Dockerfile.ruby-alpine
+
+Используя схлопывание `docker export 3e39c97956b49a | docker import - isaidashev/ui:5` удалось пожать образ:
+
+```
+isaidashev/ui        5                   536219ce1ed0        10 seconds ago      209MB
+isaidashev/ui        4.0                 3f8d0a7fe129        7 seconds ago       210MB
+isaidashev/ui        3.0                 7566addd4575        2 minutes ago       263MB
+isaidashev/ui        2.0                 4330a420f28d        About an hour ago   455MB
+```
+
 ---
 HW 15
 ---
