@@ -20,6 +20,7 @@ test_unit_job:
   services:
     - mongo:latest
   script:
+    - gem install test-unit
     - ruby simpletest.rb
 
 test_integration_job:
