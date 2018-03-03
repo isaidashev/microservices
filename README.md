@@ -1,3 +1,12 @@
+
+---
+HW 20
+---
+
+1. Расширить действующий Pipline
+
+2. Определить окружения
+
 ---
 HW19
 ---
@@ -18,11 +27,12 @@ HW19
 3. Описать для приложения этапы непрерывной интеграции
 
 *  Создаем файл .gitlab-ci.yml в котором описан СI/CD Pipline:
+
 ```
 stages:
   - build
   - test
-  - deploy
+  - review
 
 build_job:
   stage: build
@@ -39,11 +49,12 @@ test_integration_job:
   script:
     - echo 'Testing 2'
 
-deploy_job:
-  stage: deploy
+deploy_dev_job:
+  stage: review
   script:
     - echo 'Deploy'
 ```
+
 * Регистрация runner через меню настроек проекта Setting - Ci / CD - Runners setting
 * Запуск докер контейнера для runner
 `docker run -d --name gitlab-runner --restart always \ -v /srv/gitlab-runner/config:/etc/gitlab-runner \ -v /var/run/docker.sock:/var/run/docker.sock \ gitlab/gitlab-runner:latest`
