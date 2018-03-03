@@ -32,10 +32,6 @@ deploy_dev_job:
   stage: review
   script:
     - echo 'Deploy'
-<<<<<<< HEAD
   environment:
-=======
-  environments:
->>>>>>> 99a940e8505fdd62572982c20536217417a91cb5
     name: dev
     url: http://dev.example.ru
