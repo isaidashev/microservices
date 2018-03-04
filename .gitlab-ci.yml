@@ -48,6 +48,7 @@ branch review:
   script:
     - cd terraform
     - terraform init
+    - terraform plan -var 'credentials=GCLOUD_KEYFILE'
   environment:
     name: branch/$CI_COMMIT_REF_NAME
     url: http://$CI_ENVIRONMENT_SLUG.example.ru
