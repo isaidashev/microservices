@@ -1,7 +1,7 @@
 stages:
+  - review
   - build
   - test
-  - review
   - stage
   - production
 variables:
@@ -41,6 +41,9 @@ deploy_dev_job:
 branch review:
   image:
     name: hashicorp/terraform:light
+    entrypoint:
+      - '/usr/bin/env'
+      - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
   stage: review
   script:
     - ls -alF terraform
