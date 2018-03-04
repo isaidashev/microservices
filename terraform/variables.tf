@@ -1,3 +1,8 @@
+variable credentials {
+  description = "Json credentials file GCP"
+  default     = ""
+}
+
 variable project {
   description = "Project"
   default     = "docker-194817"

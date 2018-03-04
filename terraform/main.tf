@@ -1,6 +1,7 @@
 provider "google" {
-  project = "${var.project}"
-  region  = "${var.region}"
+  credentials = "${var.credential}"
+  project     = "${var.project}"
+  region      = "${var.region}"
 }
 
 resource "google_compute_instance" "gitlab-ci" {

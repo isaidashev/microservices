@@ -30,13 +30,13 @@ test_integration_job:
   script:
     - echo 'Testing 2'
 
-deploy_dev_job:
-  stage: review
-  script:
-    - echo 'Deploy'
-  environment:
-    name: dev
-    url: http://dev.example.ru
+#deploy_dev_job:
+#  stage: review
+#  script:
+#    - echo 'Deploy'
+#  environment:
+#    name: dev
+#    url: http://dev.example.ru
 
 branch review:
   image:
@@ -46,7 +46,8 @@ branch review:
       - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
   stage: review
   script:
-    - ls -alF terraform
+    - cd terraform
+    - terraform init
   environment:
     name: branch/$CI_COMMIT_REF_NAME
     url: http://$CI_ENVIRONMENT_SLUG.example.ru
