@@ -11,11 +11,11 @@ build_job:
   stage: build
   script:
     - echo 'Building'
-before_script:
-  - apk --update add ruby ruby-io-console ruby-irb ruby-json ruby-rake ruby-rdoc ruby-dev make build-base gcc abuild binutils
-  - gem install bundler
-  - cd reddit
-  - bundle install
+#before_script:
+#  - apk --update add ruby ruby-io-console ruby-irb ruby-json ruby-rake ruby-rdoc ruby-dev make build-base gcc abuild binutils
+#  - gem install bundler
+#  - cd reddit
+#  - bundle install
 
 test_unit_job:
   stage: test
