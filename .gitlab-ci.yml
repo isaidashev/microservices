@@ -49,7 +49,7 @@ branch review:
     - echo $GCLOUD_KEYFILE
     - cd terraform
     - terraform init
-    - terraform plan -var 'credentials=$GCLOUD_KEYFILE' -var 'public_key_path=$SSH_KEY'
+    - terraform plan -var credentials=$GCLOUD_KEYFILE -var public_key_path=$SSH_KEY
   environment:
     name: branch/$CI_COMMIT_REF_NAME
     url: http://$CI_ENVIRONMENT_SLUG.example.ru
