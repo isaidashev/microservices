@@ -46,7 +46,7 @@ branch review:
       - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
   stage: review
   script:
-    - echo $$GCLOUD_KEYFILE
+    - echo $GCLOUD_KEYFILE
     - cd terraform
     - terraform init
     - terraform plan -var 'credentials=$GCLOUD_KEYFILE' -var 'public_key_path=$SSH_KEY'
