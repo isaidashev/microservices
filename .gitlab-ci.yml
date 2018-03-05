@@ -47,9 +47,10 @@ branch review:
   stage: review
   script:
     - export GOOGLE_CREDENTIALS=$GCLOUD_KEYFILE
+    - export public_key_path=$SH_KEY
     - cd terraform
     - terraform init
-    - terraform plan -var public_key_path=$SSH_KEY
+    - terraform plan 
   environment:
     name: branch/$CI_COMMIT_REF_NAME
     url: http://$CI_ENVIRONMENT_SLUG.example.ru
