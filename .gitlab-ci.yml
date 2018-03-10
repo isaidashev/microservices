@@ -50,7 +50,7 @@ branch review:
     - export public_key_path=$SH_KEY
     - cd terraform
     - terraform init
-    - terraform aplly -auto-approve=true -var instance_name=$CI_COMMIT_REF_NAME
+    - terraform aplly -auto-approve -var instance_name=$CI_COMMIT_REF_NAME
   environment:
     name: branch/$CI_COMMIT_REF_NAME
     url: http://$CI_ENVIRONMENT_SLUG.example.ru
