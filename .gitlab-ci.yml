@@ -48,7 +48,7 @@ branch review:
   script:
     - export GOOGLE_CREDENTIALS=$GCLOUD_KEYFILE
     - export public_key_path=$SH_KEY
-    - echo $I_COMMIT_REF_NAME
+    - echo $CI_COMMIT_REF_NAME
     - echo $CI_ENVIRONMENT_SLUG
     - export instance_name=$CI_COMMIT_REF_NAME
     - cd terraform
