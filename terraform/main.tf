@@ -6,7 +6,7 @@ provider "google" {
 
 resource "google_compute_instance" "gitlab-ci" {
   count        = 1
-  name         = "gitlab-ci${count.index}"
+  name         = "${var.instance_name}${count.index}"
   machine_type = "n1-standard-1"
   zone         = "${var.zone}"
   tags         = ["gitlab-ci"]
