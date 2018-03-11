@@ -49,7 +49,7 @@ branch review:
     #- export GOOGLE_CREDENTIALS=$GCLOUD_KEYFILE
     - export public_key_path=$SH_KEY
     - cd terraform
-    - terraform init -var credential=$GOOGLE_CREDENTIALS
+    - terraform init
     - terraform apply -auto-approve -var instance_name=$CI_COMMIT_REF_NAME
   environment:
     name: branch/$CI_COMMIT_REF_NAME
