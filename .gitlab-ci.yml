@@ -46,9 +46,9 @@ branch review:
       - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
   stage: review
   script:
-    - echo $GOOGLE_CREDENTIALS > credentials.json
     - export public_key_path=$SH_KEY
     - cd terraform
+    - echo $GOOGLE_CREDENTIALS > credentials.json
     - terraform init
     - terraform apply -auto-approve -var instance_name=$CI_COMMIT_REF_NAME -var credential=$GOOGLE_CREDENTIALS
   environment:
