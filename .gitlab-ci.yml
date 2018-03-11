@@ -46,7 +46,7 @@ branch review:
       - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
   stage: review
   script:
-    #- export GOOGLE_CREDENTIALS=$GCLOUD_KEYFILE
+    - echo $GOOGLE_CREDENTIALS > credentials.json
     - export public_key_path=$SH_KEY
     - cd terraform
     - terraform init
