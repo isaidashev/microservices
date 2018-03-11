@@ -1,4 +1,4 @@
-variable credentials {
+variable key {
   description = "Json credentials file GCP"
   default     = "./credentials.json"
 }
