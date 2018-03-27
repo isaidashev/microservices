@@ -33,26 +33,3 @@ resource "google_compute_instance" "gitlab-ci" {
     ssh-keys = "appuser:${var.public_key_path}"
   }
 }
-
-resource "google_compute_address" "gitlab_ip" {
-  name = "gitlab-ci"
-}
-
-resource "google_compute_firewall" "firewall_gitlab-ci" {
-  name = "allow-gitlab-default"
-
-  #Название сети, в которой действует правило
-  network = "default"
-
-  #Какой доступ разрешить
-  allow {
-    protocol = "tcp"
-    ports    = ["80", "443"]
-  }
-
-  #Каким адресам разрешаем доступ
-  source_ranges = ["0.0.0.0/0"]
-
-  #Правило применимо для инстансов с тегом ...
-  target_tags = ["gitlab-ci"]
-}

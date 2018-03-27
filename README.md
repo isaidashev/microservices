@@ -7,6 +7,13 @@ HW 20
 
 2. Определить окружения
 
+#ДЗ
+
+## Отдельный сервер для branch
+Импорт одного инстанса из GCP в Terraform
+'terraform import -config=./ -var 'key=/Users/ildar/Downloads/Testing\ gitlab-0ec00b5dac4a.json' google_compute_instance.gitlab-ci testing-gitlab-198014/europe-west1-d/test0'
+
+
 ---
 HW19
 ---

@@ -6,7 +6,8 @@
 *.retry
 *.pem
 jdauphant.nginx
-
+#gcp credential
+credentials.json
 # Vagrant & molecule
 .vagrant/
 *.log

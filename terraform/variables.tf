@@ -5,7 +5,7 @@ variable key {
 
 variable project {
   description = "Project"
-  default     = "docker-194817"
+  default     = "testing-gitlab-198014"
 }
 
 variable region {
