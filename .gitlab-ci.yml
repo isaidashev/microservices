@@ -39,7 +39,7 @@ variables:
 #    url: http://dev.example.ru
 
 cache:
-  key: terraform
+  key: "$CI_COMMIT_REF_NAME"
   paths:
     - terraform
 
@@ -75,7 +75,7 @@ stop_review:
   script:
     - cd terraform
     - ls -alF
-    - terraform destroy
+    - terraform destroy -force
   environment:
     name: branch/$CI_COMMIT_REF_NAME
     action: stop
