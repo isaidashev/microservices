@@ -46,7 +46,7 @@ branch review:
       - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
   stage: review
   cache:
-    key: gems
+    key: terraform
     paths:
       - terraform
   script:
@@ -66,13 +66,13 @@ branch review:
 stop_review:
   stage: review
   cache:
-    key: gems
+    key: terraform
     paths:
       - terraform
   when: manual
   script:
-    - ls -alF
     - cd terraform
+    - ls -alF
     - terraform destroy
   environment:
     name: branch/$CI_COMMIT_REF_NAME
