@@ -49,6 +49,7 @@ branch review:
     - cd
     - echo $GOOGLE_CREDENTIALS > credentials.json
     - terraform init
+    - terraform plan -var instance_name=$CI_COMMIT_REF_NAME -var public_key_path=$SH_KEY
     - terraform apply -auto-approve -var "instance_name=$CI_COMMIT_REF_NAME" -var "public_key_path=$SH_KEY"
   environment:
     name: branch/$CI_COMMIT_REF_NAME
