@@ -71,6 +71,7 @@ stop_review:
       - terraform
   when: manual
   script:
+    - ls -alF
     - cd terraform
     - terraform destroy
   environment:
