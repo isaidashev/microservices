@@ -46,17 +46,28 @@ branch review:
       - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
   stage: review
   script:
-    - cd terraform
+    - cd
     - echo $GOOGLE_CREDENTIALS > credentials.json
     - terraform init
     - terraform apply -auto-approve -var instance_name=$CI_COMMIT_REF_NAME -var public_key_path=$SH_KEY
   environment:
     name: branch/$CI_COMMIT_REF_NAME
     url: http://$CI_ENVIRONMENT_SLUG.example.ru
+    on_stop: stop_review
   only:
     - branches
   except:
     - master
+
+stop_review:
+  stage: review
+  script:
+    - cd terraform
+    - terraform destroy
+  environment:
+    name: branch/$CI_COMMIT_REF_NAME
+    action: stop
+
 
 staging:
   stage: stage
