@@ -45,6 +45,10 @@ branch review:
       - '/usr/bin/env'
       - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
   stage: review
+  cache:
+    key: gems
+    paths:
+      - terraform
   script:
     - cd terraform
     - echo $GOOGLE_CREDENTIALS > credentials.json
@@ -61,6 +65,11 @@ branch review:
 
 stop_review:
   stage: review
+  cache:
+    key: gems
+    paths:
+      - terraform
+  when: manual
   script:
     - cd terraform
     - terraform destroy
