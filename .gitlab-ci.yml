@@ -38,6 +38,11 @@ variables:
 #    name: dev
 #    url: http://dev.example.ru
 
+cache:
+  key: terraform
+  paths:
+    - terraform
+
 branch review:
   image:
     name: hashicorp/terraform:light
@@ -45,10 +50,6 @@ branch review:
       - '/usr/bin/env'
       - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
   stage: review
-  cache:
-    key: terraform
-    paths:
-      - terraform
   script:
     - cd terraform
     - echo $GOOGLE_CREDENTIALS > credentials.json
@@ -65,10 +66,6 @@ branch review:
 
 stop_review:
   stage: review
-  cache:
-    key: terraform
-    paths:
-      - terraform
   when: manual
   script:
     - cd terraform
