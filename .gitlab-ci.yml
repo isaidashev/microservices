@@ -1,6 +1,6 @@
 stages:
-  - review
   - build
+  - review
   - test
   - stage
   - production
@@ -43,13 +43,13 @@ cache:
   paths:
     - terraform
 
-branch review:
+Deploy Host Server:
   image:
     name: hashicorp/terraform:light
     entrypoint:
       - '/usr/bin/env'
       - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-  stage: review
+  stage: build
   script:
     - cd terraform
     - echo $GOOGLE_CREDENTIALS > credentials.json
@@ -64,22 +64,31 @@ branch review:
   except:
     - master
 
+Ansible Deploy Docker:
+  image:
+    name: williamyeh/ansible:ubuntu16.04-onbuild
+  stage: build
+  script:
+    - ansible --version
+  only:
+    - branches
+  except:
+    - master
+
 stop_review:
   image:
     name: hashicorp/terraform:light
     entrypoint:
       - '/usr/bin/env'
       - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-  stage: review
+  stage: build
   when: manual
   script:
     - cd terraform
-    - ls -alF
     - terraform destroy -force
   environment:
     name: branch/$CI_COMMIT_REF_NAME
     action: stop
-
 
 staging:
   stage: stage
