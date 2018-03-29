@@ -70,6 +70,7 @@ Ansible Deploy Docker:
   stage: build
   script:
     - ls -alF
+    - pip install apache-libcloud
     - cd ansible/ansible_in_docker/
     - echo $PR_SH_KEY > ./appuser
     - echo $GOOGLE_CREDENTIALS_PEM > PRIV.pem
