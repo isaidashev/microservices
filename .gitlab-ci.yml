@@ -69,12 +69,12 @@ Ansible Deploy Docker:
     name: williamyeh/ansible:ubuntu16.04
   stage: build
   script:
-    - ls -alF ansible/ansible_in_docker/
     - pip install apache-libcloud
     - cd ansible/ansible_in_docker/
-    - echo $PR_SH_KEY > ./appuser
+    - echo $PR_SH_KEY > appuser
     - echo $GOOGLE_CREDENTIALS_PEM > PRIV.pem
     - export ANSIBLE_CONFIG=/ansible/ansible.cfg
+    - ls -alF ansible/ansible_in_docker/
     - inventory/gce.py --list
     - ansible -i inventory/ tag_gitlab-ci -m setup
   environment:
