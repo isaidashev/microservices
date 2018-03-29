@@ -1,6 +1,0 @@
----
-gitlabci:
-  hosts:
-    gitlab:
-      ansible_host: 104.155.0.111
-...

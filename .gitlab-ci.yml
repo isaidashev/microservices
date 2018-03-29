@@ -69,7 +69,11 @@ Ansible Deploy Docker:
     name: williamyeh/ansible:ubuntu16.04-onbuild
   stage: build
   script:
+    - echo $PR_SH_KEY > ~/appuser
+    - export ANSIBLE_CONFIG=/ansible/ansible.cfg
     - ansible --version
+  environment:
+   name: branch/$CI_COMMIT_REF_NAME
   only:
     - branches
   except:
