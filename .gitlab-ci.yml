@@ -74,8 +74,8 @@ Ansible Deploy Docker:
     - echo $PR_SH_KEY > appuser
     - echo $GOOGLE_CREDENTIALS_PEM > PRIV.pem
     - export ANSIBLE_CONFIG=/ansible/ansible.cfg
-    - ls -alF 
-    - inventory/gce.py --list
+    - ls -alF
+    - ./inventory/gce.py --list
     - ansible -i inventory/ tag_gitlab-ci -m setup
   environment:
    name: branch/$CI_COMMIT_REF_NAME
