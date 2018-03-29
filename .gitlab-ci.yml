@@ -66,7 +66,7 @@ Deploy Host Server:
 
 Ansible Deploy Docker:
   image:
-    name: williamyeh/ansible:ubuntu16.04-onbuild
+    name: williamyeh/ansible:ubuntu16.04
   stage: build
   script:
     - ls -alF
