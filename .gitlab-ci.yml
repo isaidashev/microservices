@@ -79,7 +79,6 @@ Ansible Deploy Docker:
     - echo $GOOGLE_CREDENTIALS_PEM > inventory/PRIV.pem
     - cat inventory/PRIV.pem
     - export ANSIBLE_CONFIG=inventory/gce.ini
-    - ls -alF
     - ls -alF inventory/
     - export GCE_INI_PATH=inventory/gce.ini
     - ./inventory/gce.py --list
