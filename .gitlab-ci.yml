@@ -69,9 +69,11 @@ Ansible Deploy Docker:
     name: williamyeh/ansible:ubuntu16.04-onbuild
   stage: build
   script:
-    - echo $PR_SH_KEY > ~/appuser
+    - cd /ansible/ansible_in_docker/
+    - echo $PR_SH_KEY > ./appuser
+    - echo $GOOGLE_CREDENTIALS_PEM > PRIV.pem
     - export ANSIBLE_CONFIG=/ansible/ansible.cfg
-    - ansible --version
+    - ansible -i .gce.ry tag_gitlab-ci -m setup
   environment:
    name: branch/$CI_COMMIT_REF_NAME
   only:

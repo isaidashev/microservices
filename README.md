@@ -13,6 +13,9 @@ HW 20
 Импорт одного инстанса из GCP в Terraform
 'terraform import -config=./ -var 'key=/Users/ildar/Downloads/Testing\ gitlab-0ec00b5dac4a.json' google_compute_instance.gitlab-ci testing-gitlab-198014/europe-west1-d/test0'
 
+Динамический inventory для ansible
+https://medium.com/vimeo-engineering-blog/orchestrating-gce-instances-with-ansible-d825a33793cd
+
 
 ---
 HW19
