@@ -69,7 +69,7 @@ Ansible Deploy Docker:
     name: williamyeh/ansible:ubuntu16.04
   stage: build
   script:
-    - ls -alF
+    - ls -alF ansible/ansible_in_docker/
     - pip install apache-libcloud
     - cd ansible/ansible_in_docker/
     - echo $PR_SH_KEY > ./appuser
