@@ -72,11 +72,13 @@ Ansible Deploy Docker:
     - pip install apache-libcloud
     - cd ansible/ansible_in_docker/
     - echo $PR_SH_KEY > appuser
-    - echo $GOOGLE_CREDENTIALS_PEM > PRIV.pem
+    - echo $GOOGLE_CREDENTIALS_PEM > inventory/PRIV.pem
     - export ANSIBLE_CONFIG=/ansible/ansible.cfg
     - ls -alF
+    - ls -alF inventory/
     - export GCE_INI_PATH=inventory/gce.ini
-    - ./inventory/gce.py --list
+    - cd inventory/
+    - ./gce.py --list
     - ansible -i inventory/ tag_gitlab-ci -m setup
   environment:
    name: branch/$CI_COMMIT_REF_NAME
