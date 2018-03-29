@@ -75,6 +75,7 @@ Ansible Deploy Docker:
     - echo $GOOGLE_CREDENTIALS_PEM > PRIV.pem
     - export ANSIBLE_CONFIG=/ansible/ansible.cfg
     - ls -alF
+    - export GCE_INI_PATH=inventory/gce.ini
     - ./inventory/gce.py --list
     - ansible -i inventory/ tag_gitlab-ci -m setup
   environment:
