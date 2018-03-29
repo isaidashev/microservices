@@ -67,9 +67,9 @@ Deploy Host Server:
 Ansible Deploy Docker:
   image:
     name: williamyeh/ansible:ubuntu16.04
-  entrypoint:
-    - '/usr/bin/env'
-    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    entrypoint:
+      - '/usr/bin/env'
+      - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
   stage: build
   script:
     - pip install --upgrade pip
