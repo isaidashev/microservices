@@ -1,0 +1,27 @@
+- name: Deploy Docker
+  hosts: gitlabci
+  become: true
+
+  roles:
+    - geerlingguy.docker
+
+  tasks:
+    - name: Create Directory config
+      file:
+        path: /srv/gitlab/config
+        state: directory
+    - name: Create Directory data
+      file:
+        path: /srv/gitlab/data
+        state: directory
+    - name: Create Directory logs
+      file:
+        path: /srv/gitlab/logs
+        state: directory
+    - name: Copy docker-compose.yml
+      become: true
+      copy:
+        src: /Users/ildar/Documents/otus/IsaIdasheV_microservices/docker-compose.yml
+        dest: /srv/gitlab/docker-compose.yml
+    - name: Docker-compose up
+      shell: docker-compose -f /srv/gitlab/docker-compose.yml up -d
