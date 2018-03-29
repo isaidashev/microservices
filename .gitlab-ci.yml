@@ -69,6 +69,7 @@ Ansible Deploy Docker:
     name: williamyeh/ansible:ubuntu16.04-onbuild
   stage: build
   script:
+    - ls -alF
     - cd /ansible/ansible_in_docker/
     - echo $PR_SH_KEY > ./appuser
     - echo $GOOGLE_CREDENTIALS_PEM > PRIV.pem
