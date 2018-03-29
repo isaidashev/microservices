@@ -74,6 +74,7 @@ Ansible Deploy Docker:
     - cd ansible/ansible_in_docker/
     - echo $PR_SH_KEY > appuser
     - echo $GOOGLE_CREDENTIALS_PEM > inventory/PRIV.pem
+    - cat inventory/PRIV.pem
     - export ANSIBLE_CONFIG=/ansible/ansible.cfg
     - ls -alF
     - ls -alF inventory/
