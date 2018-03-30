@@ -79,9 +79,9 @@ Ansible Deploy Docker:
     - cat ./ansible/ansible_in_docker/PRIV.pem
     - export ANSIBLE_CONFIG=./ansible/ansible_in_docker/gce.ini
     - ls -alF ./ansible/ansible_in_docker/
-    #- export GCE_INI_PATH=./ansible/ansible_in_docker/inventory/gce.ini
+    - export GCE_INI_PATH=./ansible/ansible_in_docker/gce.ini
     - pip show apache-libcloud
-    - python ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
+    - ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
     - ansible -i ./ansible/ansible_in_docker/inventory/ tag_gitlab-ci -m setup
   environment:
    name: branch/$CI_COMMIT_REF_NAME
