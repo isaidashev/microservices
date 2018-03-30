@@ -1,2 +1,2 @@
 GCE_PARAMS = ('54306751049-compute@developer.gserviceaccount.com', './ansible/ansible_in_docker/PRIV.pem')
-GCE_KEYWORD_PARAMS = {'Testing gitlab': 'testing-gitlab-198014'}
+GCE_KEYWORD_PARAMS = {'project': 'Testing\ gitlab'}
