@@ -70,7 +70,6 @@ Ansible Deploy Docker:
   stage: build
   script:
     - pip install apache-libcloud
-    - echo $PR_SH_KEY > appuser
     - cat appuser
     - echo $GOOGLE_CREDENTIALS > ~/.PRIV.json
     - export ANSIBLE_CONFIG=./ansible/ansible_in_docker/ansible.cfg
@@ -81,6 +80,7 @@ Ansible Deploy Docker:
     - pip show apache-libcloud
     - ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
     - cd ansible/ansible_in_docker/
+    - echo $PR_SH_KEY > appuser
     - ansible -i inventory tag_gitlab-ci -m setup
   environment:
    name: branch/$CI_COMMIT_REF_NAME
