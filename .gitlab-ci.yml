@@ -73,14 +73,14 @@ Ansible Deploy Docker:
     - pip install apache-libcloud
     - pwd
     - echo $PR_SH_KEY > appuser
-    - echo $GOOGLE_CREDENTIALS_PEM > ~/.PRIV.pem
-    - cat ~/.PRIV.pem
+    - echo $GOOGLE_CREDENTIALS > ~/.PRIV.json
+    - cat ~/.PRIV.json
     - export ANSIBLE_CONFIG=./ansible/ansible_in_docker/gce.ini
     - ls -alF ./ansible/ansible_in_docker/
     - export GCE_INI_PATH=./ansible/ansible_in_docker/gce.ini
     - export GCE_PROJECT=testing-gitlab-198014
     - export GCE_EMAIL=54306751049-compute@developer.gserviceaccount.com
-    - export GCE_CREDENTIALS_FILE_PATH=~/.PRIV.pem
+    - export GCE_CREDENTIALS_FILE_PATH=~/.PRIV.json
     - pip show apache-libcloud
     - ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
     - ansible -i ./ansible/ansible_in_docker/inventory/ tag_gitlab-ci -m setup
