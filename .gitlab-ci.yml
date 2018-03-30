@@ -81,6 +81,7 @@ Ansible Deploy Docker:
     - export ANSIBLE_CONFIG=inventory/gce.ini
     - ls -alF inventory/
     - export GCE_INI_PATH=inventory/gce.ini
+    - pip show apache-libcloud
     - inventory/gce.py --list
     - ansible -i inventory/ tag_gitlab-ci -m setup
   environment:
