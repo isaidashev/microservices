@@ -70,7 +70,6 @@ Ansible Deploy Docker:
   stage: build
   script:
     - pip install apache-libcloud
-    - cat appuser
     - echo $GOOGLE_CREDENTIALS > ~/.PRIV.json
     - export ANSIBLE_CONFIG=./ansible/ansible_in_docker/ansible.cfg
     - export GCE_INI_PATH=./ansible/ansible_in_docker/gce.ini
