@@ -76,18 +76,16 @@ Ansible Deploy Docker:
     - pip install apache-libcloud
     - pip install pycrypto
     - pip install crypto
-    - cd ansible/ansible_in_docker/
     - pwd
     - echo $PR_SH_KEY > appuser
-    - echo $GOOGLE_CREDENTIALS_PEM > inventory/PRIV.pem
-    - echo $GOOGLE_CREDENTIALS_PEM > PRIV.pem
-    - cat inventory/PRIV.pem
+    - echo $GOOGLE_CREDENTIALS_PEM > ./ansible/ansible_in_docker/inventory/PRIV.pem
+    - cat ./ansible/ansible_in_docker/inventory/PRIV.pem
     - export ANSIBLE_CONFIG=./inventory/gce.ini
-    - ls -alF inventory/
-    - export GCE_INI_PATH=inventory/gce.ini
+    - ls -alF ./ansible/ansible_in_docker/inventory/
+    - export GCE_INI_PATH=./ansible/ansible_in_docker/inventory/gce.ini
     - pip show apache-libcloud
-    - ./inventory/gce.py --list
-    - ansible -i inventory/ tag_gitlab-ci -m setup
+    - ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
+    - ansible -i ./ansible/ansible_in_docker/inventory/ tag_gitlab-ci -m setup
   environment:
    name: branch/$CI_COMMIT_REF_NAME
   only:
