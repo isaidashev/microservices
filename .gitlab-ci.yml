@@ -71,7 +71,7 @@ Ansible Deploy Docker:
   script:
     - easy_install pip
     - pip uninstall -y pycrypto
-    - easy_install pycrypto
+    - pip install pycrypto
     - pip install apache-libcloud
     # - pip install pycrypto
     # - pip install crypto
