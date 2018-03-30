@@ -69,13 +69,8 @@ Ansible Deploy Docker:
     name: williamyeh/ansible:ubuntu16.04-onbuild
   stage: build
   script:
-    - apt-get update && apt-get install build-essential -y
     - easy_install pip
-    - pip uninstall -y pycrypto
-    - pip install pycrypto
     - pip install apache-libcloud
-    # - pip install pycrypto
-    # - pip install crypto
     - pwd
     - echo $PR_SH_KEY > appuser
     - echo $GOOGLE_CREDENTIALS_PEM > ~/.PRIV.pem
