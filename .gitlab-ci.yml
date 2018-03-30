@@ -66,10 +66,10 @@ Deploy Host Server:
 
 Ansible Deploy Docker:
   image:
-    name: williamyeh/ansible:ubuntu16.04
+    name: williamyeh/ansible:ubuntu16.04-onbuild
   stage: build
   script:
-    - pip install --upgrade pip
+    - easy_install pip
     - pip install apache-libcloud
     - pip install pycrypto
     - pip install crypto
