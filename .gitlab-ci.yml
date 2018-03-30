@@ -81,7 +81,7 @@ Ansible Deploy Docker:
     - pip show apache-libcloud
     - ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
     - cd ansible/ansible_in_docker/
-    - ansible -i ./ansible/ansible_in_docker/inventory/gce.py tag_gitlab-ci -m setup
+    - ansible -i inventory tag_gitlab-ci -m setup
   environment:
    name: branch/$CI_COMMIT_REF_NAME
   only:
