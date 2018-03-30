@@ -79,7 +79,7 @@ Ansible Deploy Docker:
     - pip show apache-libcloud
     - ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
     - cd ansible/ansible_in_docker/
-    - echo $PR_SH_KEY > appuser chmod 600 appuser
+    - echo $PR_SH_KEY > appuser && chmod 600 appuser
     - ls -alF
     - ansible -i inventory tag_gitlab-ci -m setup
   environment:
