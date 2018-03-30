@@ -80,6 +80,7 @@ Ansible Deploy Docker:
     - export GCE_CREDENTIALS_FILE_PATH=~/.PRIV.json
     - pip show apache-libcloud
     - ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
+    - cd ansible/ansible_in_docker/
     - ansible -i ./ansible/ansible_in_docker/inventory/ tag_gitlab-ci -m setup
   environment:
    name: branch/$CI_COMMIT_REF_NAME
