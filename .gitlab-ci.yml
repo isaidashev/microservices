@@ -78,6 +78,7 @@ Ansible Deploy Docker:
     - export ANSIBLE_CONFIG=./ansible/ansible_in_docker/gce.ini
     - ls -alF ./ansible/ansible_in_docker/
     - export GCE_INI_PATH=./ansible/ansible_in_docker/gce.ini
+    - export GCE_PROJECT=testing-gitlab-198014
     - pip show apache-libcloud
     - ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
     - ansible -i ./ansible/ansible_in_docker/inventory/ tag_gitlab-ci -m setup
