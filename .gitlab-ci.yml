@@ -69,17 +69,16 @@ Ansible Deploy Docker:
     name: williamyeh/ansible:ubuntu16.04
   stage: build
   script:
-    - bash
     - pip install --upgrade pip
     - pip install apache-libcloud
     - pip install pycrypto
     - pip install crypto
     - pwd
     - echo $PR_SH_KEY > appuser
-    - echo $GOOGLE_CREDENTIALS_PEM > ./ansible/ansible_in_docker/inventory/PRIV.pem
+    - echo $GOOGLE_CREDENTIALS_PEM > ./ansible/ansible_in_docker/PRIV.pem
     - cat ./ansible/ansible_in_docker/inventory/PRIV.pem
     - export ANSIBLE_CONFIG=./inventory/gce.ini
-    - ls -alF ./ansible/ansible_in_docker/inventory/
+    - ls -alF ./ansible/ansible_in_docker/
     #- export GCE_INI_PATH=./ansible/ansible_in_docker/inventory/gce.ini
     - pip show apache-libcloud
     - python ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
