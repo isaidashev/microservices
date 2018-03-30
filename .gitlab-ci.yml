@@ -69,6 +69,7 @@ Ansible Deploy Docker:
     name: williamyeh/ansible:ubuntu16.04-onbuild
   stage: build
   script:
+    - apt-get install build-essential -y
     - easy_install pip
     - pip uninstall -y pycrypto
     - pip install pycrypto
