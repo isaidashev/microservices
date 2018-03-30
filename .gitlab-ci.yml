@@ -66,17 +66,13 @@ Deploy Host Server:
 
 Ansible Deploy Docker:
   image:
-    name: williamyeh/ansible:ubuntu16.04-onbuild
+    name: williamyeh/ansible:ubuntu16.04
   stage: build
   script:
-    - easy_install pip
     - pip install apache-libcloud
-    - pwd
     - echo $PR_SH_KEY > appuser
     - echo $GOOGLE_CREDENTIALS > ~/.PRIV.json
-    - cat ~/.PRIV.json
-    - export ANSIBLE_CONFIG=./ansible/ansible_in_docker/gce.ini
-    - ls -alF ./ansible/ansible_in_docker/
+    - export ANSIBLE_CONFIG=./ansible/ansible_in_docker/ansible.cfg
     - export GCE_INI_PATH=./ansible/ansible_in_docker/gce.ini
     - export GCE_PROJECT=testing-gitlab-198014
     - export GCE_EMAIL=54306751049-compute@developer.gserviceaccount.com
