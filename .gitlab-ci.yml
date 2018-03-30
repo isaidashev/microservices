@@ -75,8 +75,8 @@ Ansible Deploy Docker:
     - pip install crypto
     - pwd
     - echo $PR_SH_KEY > appuser
-    - echo $GOOGLE_CREDENTIALS_PEM > ./ansible/ansible_in_docker/PRIV.pem
-    - cat ./ansible/ansible_in_docker/PRIV.pem
+    - echo $GOOGLE_CREDENTIALS_PEM > ~/.PRIV.pem
+    - cat ~/.PRIV.pem
     - export ANSIBLE_CONFIG=./ansible/ansible_in_docker/gce.ini
     - ls -alF ./ansible/ansible_in_docker/
     - export GCE_INI_PATH=./ansible/ansible_in_docker/gce.ini
