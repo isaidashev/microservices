@@ -74,6 +74,8 @@ Ansible Deploy Docker:
   script:
     - pip install --upgrade pip
     - pip install apache-libcloud
+    - pip install pycrypto
+    - pip install crypto
     - cd ansible/ansible_in_docker/
     - echo $PR_SH_KEY > appuser
     - echo $GOOGLE_CREDENTIALS_PEM > inventory/PRIV.pem
