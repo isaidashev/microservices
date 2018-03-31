@@ -81,6 +81,7 @@ Ansible Deploy Docker:
     - cd ansible/ansible_in_docker/
     - echo $PR_SH_KEY > appuser && chmod 600 appuser
     - echo $SH_KEY > appuser.pub && chmod 644 appuser.pub
+    - ssh-agent bash
     - ssh-add appuser
     - ls -alF
     - echo $ANSIBLE_HOST_KEY_CHECKING
