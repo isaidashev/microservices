@@ -80,7 +80,7 @@ Ansible Deploy Docker:
     - ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
     - cd ansible/ansible_in_docker/
     - echo $PR_SH_KEY > appuser && chmod 600 appuser
-    - echo $SH_KEY > appuser.pub && chmod 600 appuser
+    - echo $SH_KEY > appuser.pub && chmod 600 appuser.pub
     - ls -alF
     - echo $ANSIBLE_HOST_KEY_CHECKING
     - ansible -vvv --private-key=appuser -u appuser -i inventory tag_gitlab-ci -m ping
