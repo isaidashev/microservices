@@ -67,6 +67,8 @@ Deploy Host Server:
 Ansible Deploy Docker:
   image:
     name: williamyeh/ansible:ubuntu16.04
+    entrypoint:
+    - /bin/bash
   stage: build
   script:
     - pip install apache-libcloud
