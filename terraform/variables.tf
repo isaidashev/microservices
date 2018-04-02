@@ -19,7 +19,10 @@ variable instance_name {
 
 variable public_key_path {
   description = "Path to the public key used for ssh access"
-  default     = "~/.ssh/appuser.pub"
+}
+
+variable gitlab_public_key_path {
+  description = "Path to the public key used for ssh access for Gitlab"
 }
 
 variable "app-disk-image" {
