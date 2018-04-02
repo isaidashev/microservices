@@ -30,6 +30,6 @@ resource "google_compute_instance" "gitlab-ci" {
 
   metadata {
     #Добавление публичного ключа к инстансу
-    ssh-keys = "appuser:${var.public_key_path)}\ngitlab:${var.gitlab_public_key_path)}"
+    ssh-keys = "appuser:${var.public_key_path}\ngitlab:${var.gitlab_public_key_path}"
   }
 }
