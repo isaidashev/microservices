@@ -38,10 +38,10 @@ variables:
 #    name: dev
 #    url: http://dev.example.ru
 
-cache:
-  key: "$CI_COMMIT_REF_NAME"
-  paths:
-    - terraform
+# cache:
+#   key: "$CI_COMMIT_REF_NAME"
+#   paths:
+#     - terraform
 
 Deploy Host Server:
   image:
