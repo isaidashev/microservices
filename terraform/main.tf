@@ -15,7 +15,7 @@ resource "google_compute_instance" "gitlab-ci" {
   boot_disk {
     initialize_params {
       image = "${var.app-disk-image}"
-      size  = "50"
+      size  = "10"
     }
   }
 
