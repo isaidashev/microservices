@@ -82,11 +82,13 @@ Ansible Deploy Docker:
     - pip show apache-libcloud
     - ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
     - cd ansible/ansible_in_docker/
+    - eval $(ssh-agent -s)
     - mkdir /root/.ssh
     - echo $PR_SH_KEY > /root/.ssh/gitlab && chmod 600 /root/.ssh/gitlab
     - echo $SH_KEY > /root/.ssh/gitlab.pub && chmod 644 /root/.ssh/gitlab.pub
     - ls -alF
     - echo $ANSIBLE_HOST_KEY_CHECKING
+    - ssh-add /root/.ssh/gitlab
     - ansible -vvv -u gitlab --private-key /root/.ssh/gitlab -i inventory tag_gitlab-ci -m ping
   environment:
    name: branch/$CI_COMMIT_REF_NAME
