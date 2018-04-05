@@ -11,7 +11,13 @@ variables:
 #   stage: build
 #   script:
 #     - echo 'Building'
-#before_script:
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - echo "$PR_SH_KEYY" | tr -d '\r' | ssh-add - > /dev/null
+
+
+
 #  - apk --update add ruby ruby-io-console ruby-irb ruby-json ruby-rake ruby-rdoc ruby-dev make build-base gcc abuild binutils
 #  - gem install bundler
 #  - cd reddit
@@ -83,12 +89,11 @@ Ansible Deploy Docker:
     - ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
     - cd ansible/ansible_in_docker/
     - eval $(ssh-agent -s)
-    - mkdir /root/.ssh
-    - echo $PR_SH_KEY > /root/.ssh/gitlab && chmod 600 /root/.ssh/gitlab
-    - echo $SH_KEY > /root/.ssh/gitlab.pub && chmod 644 /root/.ssh/gitlab.pub
+    - mkdir -p /root/.ssh
+    - echo $SSH_PRIVATE_KEY > /root/.ssh/gitlab && chmod 700 -R /root/.ssh/
+    #- echo $SH_KEY > /root/.ssh/gitlab.pub
     - ls -alF
     - echo $ANSIBLE_HOST_KEY_CHECKING
-    - echo "$PR_SH_KEYY" | tr -d '\r' | ssh-add - > /dev/null
     - ansible -vvv -u gitlab -i inventory tag_gitlab-ci -m ping
   environment:
    name: branch/$CI_COMMIT_REF_NAME
