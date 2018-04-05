@@ -90,7 +90,7 @@ Ansible Deploy Docker:
     - cd ansible/ansible_in_docker/
     - eval $(ssh-agent -s)
     - mkdir -p ~/.ssh
-    - echo $SSH_PRIVATE_KEY > ~/.ssh/gitlab && chmod 700 -R ~/.ssh/
+    - echo $SSH_PRIVATE_KEY | tr -d '\r' > ~/.ssh/gitlab && chmod 700 -R ~/.ssh/
     #- echo $SH_KEY > /root/.ssh/gitlab.pub
     - ls -alF
     - echo $ANSIBLE_HOST_KEY_CHECKING
