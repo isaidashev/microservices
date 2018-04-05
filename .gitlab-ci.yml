@@ -88,8 +88,8 @@ Ansible Deploy Docker:
     - echo $SH_KEY > /root/.ssh/gitlab.pub && chmod 644 /root/.ssh/gitlab.pub
     - ls -alF
     - echo $ANSIBLE_HOST_KEY_CHECKING
-    - ssh-add /root/.ssh/gitlab
-    - ansible -vvv -u gitlab --private-key /root/.ssh/gitlab -i inventory tag_gitlab-ci -m ping
+    - echo "$PR_SH_KEYY" | tr -d '\r' | ssh-add - > /dev/null
+    - ansible -vvv -u gitlab -i inventory tag_gitlab-ci -m ping
   environment:
    name: branch/$CI_COMMIT_REF_NAME
   only:
