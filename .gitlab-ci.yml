@@ -89,8 +89,8 @@ Ansible Deploy Docker:
     - ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
     - cd ansible/ansible_in_docker/
     - eval $(ssh-agent -s)
-    - mkdir -p /root/.ssh
-    - echo $SSH_PRIVATE_KEY > /root/.ssh/gitlab && chmod 700 -R /root/.ssh/
+    - mkdir -p ~/.ssh
+    - echo $SSH_PRIVATE_KEY > ~/.ssh/gitlab && chmod 700 -R ~/.ssh/
     #- echo $SH_KEY > /root/.ssh/gitlab.pub
     - ls -alF
     - echo $ANSIBLE_HOST_KEY_CHECKING
