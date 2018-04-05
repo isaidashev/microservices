@@ -83,11 +83,11 @@ Ansible Deploy Docker:
     - ./ansible/ansible_in_docker/inventory/gce.py --list --pretty
     - cd ansible/ansible_in_docker/
     - mkdir /root/.ssh
-    - echo $PR_SH_KEY > /root/.ssh/appuser && chmod 600 /root/.ssh/appuser
-    - echo $SH_KEY > /root/.ssh/appuser.pub && chmod 644 /root/.ssh/appuser.pub
+    - echo $PR_SH_KEY > /root/.ssh/gitlab && chmod 600 /root/.ssh/gitlab
+    - echo $SH_KEY > /root/.ssh/gitlab.pub && chmod 644 /root/.ssh/gitlab.pub
     - ls -alF
     - echo $ANSIBLE_HOST_KEY_CHECKING
-    - ansible -vvv -u appuser --private-key /root/.ssh/appuser -i inventory tag_gitlab-ci -m ping
+    - ansible -vvv -u gitlab --private-key /root/.ssh/gitlab -i inventory tag_gitlab-ci -m ping
   environment:
    name: branch/$CI_COMMIT_REF_NAME
   only:
