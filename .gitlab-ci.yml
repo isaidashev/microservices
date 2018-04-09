@@ -92,7 +92,6 @@ Ansible Deploy Docker:
     - mkdir -p ~/.ssh
     - echo $SSH_PRIVATE_KEY | tr -d '\r' > ~/.ssh/gitlab && chmod 700 -R ~/.ssh/
     - touch ~/.ssh/known_hosts && chmod 700 -R ~/.ssh/
-    - ssh-add -D
     - ls -alF
     - echo $ANSIBLE_HOST_KEY_CHECKING
     - ansible -vvv -u gitlabci --private-key=~/.ssh/gitlab -i inventory tag_gitlab-ci -m setup
