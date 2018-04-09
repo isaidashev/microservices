@@ -94,7 +94,7 @@ Ansible Deploy Docker:
     - touch ~/.ssh/known_hosts
     - ls -alF
     - echo $ANSIBLE_HOST_KEY_CHECKING
-    - ansible -vvvv -u gitlabci --private-key=~/.ssh/gitlab -i inventory tag_gitlab-ci -m setup
+    - ansible -vvv -u gitlabci --private-key=~/.ssh/gitlab -i inventory tag_gitlab-ci -m setup
   environment:
    name: branch/$CI_COMMIT_REF_NAME
   only:
