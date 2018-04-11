@@ -4,9 +4,40 @@ HW 20
 ---
 
 1. Расширить действующий Pipline
+* Инстраляцию gitlab осуществил с помощью terraform + ansible
+* Создание нового проекта:
+```
+git checkout -b docker-7
+git remote add gitlab2 http://<your-vm-ip>/homework/example2.git
+git push gitlab2 docker-7 - pusy изменению в другой репозиторий
+```
+* Выполнение JOB по кнопке в интерфейсе:
+```
+when: manual
+```
 
 2. Определить окружения
+* Оркужение:
+```
+environment:
+  name: branch/$CI_COMMIT_REF_NAME
+  url: http://$CI_ENVIRONMENT_SLUG.example.ru
+```
+* Выкатка только по TAG вида 2.4.10:
 
+```
+only:
+  - /^\d+\.\d+.\d+
+```
+* Задать тег `git tag 2.4.10`
+
+## Дополнительное задание
+Работы пытался выполнить в ветке new-feature
+1. Решил пойти путем разворачивания VM на GCE c через Terraform который запускается на Runner. Развернуть удалость.
+2. Далее Ansible работает для настройки приложения на развернутом сервере. Столкнулся с проблемой подключения Ansible к развернтутой VM. Выдается ошибка связанная с ключами.  
+```
+""Failed to connect to the host via ssh: Warning: Permanently added '35.195.99.217' (ECDSA) to the list of known hosts.\r\nPermission denied (publickey)"
+```
 ---
 HW19
 ---
