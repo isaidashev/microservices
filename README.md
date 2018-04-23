@@ -1,5 +1,41 @@
 
 ---
+HW 21
+---
+* Prometheus: запуск, конфигурация
+
+Создание правил фаервола в GCP
+
+gcloud compute firewall-rules create prometheus-default --allow tcp:9090
+gcloud compute firewall-rules create puma-default --allow tcp:9292
+
+Создание докер хоста:
+export GOOGLE_PROJECT=_ваш-проект_
+https://gist.github.com/isaidashev/a1216ff1c8c0503c3bde6275b71d9576
+
+Сборка образов: `for i in ui post-py comment; do cd src/$i; bash docker_build.sh; cd -; done`
+
+* Мониторинг состояния микросервисов
+
+Логи с host сибираються с помощью node-exporter:v0.15.2. Добавляем его в docker-compose.yml
+
+В конфиге prometheus.yml добавляем еще один Job для сбора логов:
+```
+- job_name: 'node'
+  static_configs:
+    - targets:
+      - 'node-exporter:9100'
+
+```
+Веселая команда грузит проц:
+```
+yes > /dev/null
+```
+* Сбор метрик хоста с использованием экспортера  
+* Задания со *
+
+
+---
 HW 20
 ---
 
