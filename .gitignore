@@ -1,8 +1,18 @@
-build_info.txt
-prometheus/
+*.tfstate
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfvars
+.terraform/
+*.retry
+*.pem
+jdauphant.nginx
 
-## python specific
+# Vagrant & molecule
+.vagrant/
+*.log
 *.pyc
+.molecule
+.cache
 
-## docker compose enviroment file
-*.env
+#python virtualenv
+ansible/molecule/
