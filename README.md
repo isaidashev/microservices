@@ -1,3 +1,137 @@
+
+---
+HW 21
+---
+* Prometheus: запуск, конфигурация
+
+Создание правил фаервола в GCP
+
+gcloud compute firewall-rules create prometheus-default --allow tcp:9090
+gcloud compute firewall-rules create puma-default --allow tcp:9292
+
+Создание докер хоста:
+export GOOGLE_PROJECT=_ваш-проект_
+https://gist.github.com/isaidashev/a1216ff1c8c0503c3bde6275b71d9576
+
+Сборка образов: `for i in ui post-py comment; do cd src/$i; bash docker_build.sh; cd -; done`
+
+* Мониторинг состояния микросервисов
+
+Логи с host сибираються с помощью node-exporter:v0.15.2. Добавляем его в docker-compose.yml
+
+В конфиге prometheus.yml добавляем еще один Job для сбора логов:
+```
+- job_name: 'node'
+  static_configs:
+    - targets:
+      - 'node-exporter:9100'
+
+```
+Веселая команда грузит проц:
+```
+yes > /dev/null
+```
+* Сбор метрик хоста с использованием экспортера  
+* Задания со *
+
+
+---
+HW 20
+---
+
+1. Расширить действующий Pipline
+* Инстраляцию gitlab осуществил с помощью terraform + ansible
+* Создание нового проекта:
+```
+git checkout -b docker-7
+git remote add gitlab2 http://<your-vm-ip>/homework/example2.git
+git push gitlab2 docker-7 - pusy изменению в другой репозиторий
+```
+* Выполнение JOB по кнопке в интерфейсе:
+```
+when: manual
+```
+
+2. Определить окружения
+* Оркужение:
+```
+environment:
+  name: branch/$CI_COMMIT_REF_NAME
+  url: http://$CI_ENVIRONMENT_SLUG.example.ru
+```
+* Выкатка только по TAG вида 2.4.10:
+
+```
+only:
+  - /^\d+\.\d+.\d+
+```
+* Задать тег `git tag 2.4.10`
+
+## Дополнительное задание
+Работы пытался выполнить в ветке new-feature
+1. Решил пойти путем разворачивания VM на GCE c через Terraform который запускается на Runner. Развернуть удалость.
+2. Далее Ansible работает для настройки приложения на развернутом сервере. Столкнулся с проблемой подключения Ansible к развернтутой VM. Выдается ошибка связанная с ключами.  
+```
+""Failed to connect to the host via ssh: Warning: Permanently added '35.195.99.217' (ECDSA) to the list of known hosts.\r\nPermission denied (publickey)"
+```
+---
+HW19
+---
+
+1. Подготовка инсталляции gitlabCI
+
+* Виртуальная машина развернута с помощью Terraform
+* Установка docker была осуществлена с помощью роли geerlingguy в ansible
+* Окружение так же создано и запущен образ gitlab-ce с помощью ansible
+
+2. Подготовка репозитория c кодом приложения
+
+* Каждый проект в Gitlab CI принадлежит к группе проектов
+* В проекте может быть определен CI/CD пайплайн
+* Задачи (jobs) входящие в пайплайн должны исполняться на runners
+* Добавил ветку в репозиторий `git remote add gitlab http://<your-vm-ip>/homework/example.git`
+
+3. Описать для приложения этапы непрерывной интеграции
+
+*  Создаем файл .gitlab-ci.yml в котором описан СI/CD Pipline:
+
+```
+stages:
+  - build
+  - test
+  - review
+
+build_job:
+  stage: build
+  script:
+    - echo 'Building'
+
+test_unit_job:
+  stage: test
+  script:
+    - echo 'Testing 1'
+
+test_integration_job:
+  stage: test
+  script:
+    - echo 'Testing 2'
+
+deploy_dev_job:
+  stage: review
+  script:
+    - echo 'Deploy'
+```
+
+* Регистрация runner через меню настроек проекта Setting - Ci / CD - Runners setting
+* Запуск докер контейнера для runner
+`docker run -d --name gitlab-runner --restart always \ -v /srv/gitlab-runner/config:/etc/gitlab-runner \ -v /var/run/docker.sock:/var/run/docker.sock \ gitlab/gitlab-runner:latest`
+`docker exec -it gitlab-runner gitlab-runner register` - ответить на задаваемые вопросы
+* Провел тестирование приложения. Исправлял проблемы при установки GEM и проведения тестирования.
+
+## Дополнитеное задание
+
+В плане!!!
+
 ---
 HW17
 ---
