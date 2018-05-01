@@ -1,0 +1,72 @@
+stages:
+  - build
+  - test
+  - review
+  - stage
+  - production
+variables:
+  DATABASE_URL: 'mongodb://mongo/user_posts'
+
+build_job:
+  stage: build
+  script:
+    - echo 'Building'
+before_script:
+  - apk --update add ruby ruby-io-console ruby-irb ruby-json ruby-rake ruby-rdoc ruby-dev make build-base gcc abuild binutils
+  - gem install bundler
+  - cd reddit
+  - bundle install
+
+test_unit_job:
+  stage: test
+  services:
+    - mongo:latest
+  script:
+    - gem install test-unit
+    - ruby simpletest.rb
+
+test_integration_job:
+  stage: test
+  script:
+    - echo 'Testing 2'
+
+deploy_dev_job:
+  stage: review
+  script:
+    - echo 'Deploy'
+  environment:
+    name: dev
+    url: http://dev.example.ru
+
+branch review:
+  stage: review
+  script: echo "Deploy to $CI_ENVIRONMENT_SLUG"
+  environment:
+    name: branch/$CI_COMMIT_REF_NAME
+    url: http://$CI_ENVIRONMENT_SLUG.example.ru
+  only:
+    - branches
+  except:
+    - master
+
+staging:
+  stage: stage
+  when: manual
+  only:
+    - /^\d+\.\d+.\d+
+  script:
+    - echo 'Deploy'
+  environment:
+    name: stage
+    url: http://dev.example.ru
+
+production:
+  stage: production
+  when: manual
+  only:
+    - /^\d+\.\d+.\d+
+  script:
+    - echo 'Deploy'
+  environment:
+    name: production
+    url: http://dev.example.ru
