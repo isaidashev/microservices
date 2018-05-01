@@ -133,6 +133,62 @@ deploy_dev_job:
 В плане!!!
 
 ---
+HW19
+---
+
+1. Подготовка инсталляции gitlabCI
+
+* Виртуальная машина развернута с помощью Terraform
+* Установка docker была осуществлена с помощью роли geerlingguy в ansible
+* Окружение так же создано и запущен образ gitlab-ce с помощью ansible
+
+2. Подготовка репозитория c кодом приложения
+
+* Каждый проект в Gitlab CI принадлежит к группе проектов
+* В проекте может быть определен CI/CD пайплайн
+* Задачи (jobs) входящие в пайплайн должны исполняться на runners
+* Добавил ветку в репозиторий `git remote add gitlab http://<your-vm-ip>/homework/example.git`
+
+3. Описать для приложения этапы непрерывной интеграции
+
+*  Создаем файл .gitlab-ci.yml в котором описан СI/CD Pipline:
+```
+stages:
+  - build
+  - test
+  - deploy
+
+build_job:
+  stage: build
+  script:
+    - echo 'Building'
+
+test_unit_job:
+  stage: test
+  script:
+    - echo 'Testing 1'
+
+test_integration_job:
+  stage: test
+  script:
+    - echo 'Testing 2'
+
+deploy_job:
+  stage: deploy
+  script:
+    - echo 'Deploy'
+```
+* Регистрация runner через меню настроек проекта Setting - Ci / CD - Runners setting
+* Запуск докер контейнера для runner
+`docker run -d --name gitlab-runner --restart always \ -v /srv/gitlab-runner/config:/etc/gitlab-runner \ -v /var/run/docker.sock:/var/run/docker.sock \ gitlab/gitlab-runner:latest`
+`docker exec -it gitlab-runner gitlab-runner register` - ответить на задаваемые вопросы
+* Провел тестирование приложения. Исправлял проблемы при установки GEM и проведения тестирования.
+
+## Дополнитеное задание
+
+В плане!!!
+
+---
 HW17
 ---
 1. Работа с сетью
