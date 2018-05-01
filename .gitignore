@@ -8,6 +8,7 @@
 jdauphant.nginx
 .env
 appuser
+build_info.txt
 
 # Vagrant & molecule
 .vagrant/
