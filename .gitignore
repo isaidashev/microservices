@@ -9,6 +9,7 @@ jdauphant.nginx
 .env
 appuser
 build_info.txt
+.DS_Store
 
 # Vagrant & molecule
 .vagrant/
