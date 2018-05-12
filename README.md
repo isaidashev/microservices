@@ -1,4 +1,23 @@
 ---
+HW 24
+---
+* Сбор не структурированых логов
+* Визуализация логов
+* Сбор структурированных логов
+
+* Сбор логов с Docker контейнеров
+
+Конфиг /etc/docker/daemon.json или опция --log-driver json-file. Посмотреть лог при этом можно tail -f $(docker inspect -f {{.LogPath}} dockerpuma_ui_1) или в папке с контейнером.
+
+Journald-драйвер - пишет в системный лог.
+GCP-драйвер - пишет логи в Google Stackdrive, но при этом не работает docker log. /etc/docker/daemon.json
+
+Другие драйверы Syslog, Gelf, Splunk, Fluentd,
+* Distributed tracing
+* Zipkin
+
+
+---
 HW 23
 ---
 * Мониторинг Docker контейнеров
@@ -31,6 +50,7 @@ HW 23
  git filter-branch --tree-filter 'rm -f имя_файла' master
  git push --force
 
+Еще один инструмент для чистки репозитория BFG https://rtyley.github.io/bfg-repo-cleaner/
 ---
 HW 21
 ---
