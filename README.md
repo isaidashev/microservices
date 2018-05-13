@@ -51,6 +51,8 @@ HW 23
  git push --force
 
 Еще один инструмент для чистки репозитория BFG https://rtyley.github.io/bfg-repo-cleaner/
+
+При удалении столкнулся с проблемой https://github.com/rtyley/bfg-repo-cleaner/issues/36.
 ---
 HW 21
 ---
