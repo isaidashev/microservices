@@ -1,7 +1,26 @@
 ---
 HW 24
 ---
+ELK - elasticksearch, greylog, kibana
+EFK - elasticksearch, Fluentd, kibana
+
 * Сбор не структурированых логов
+
+Использование регулярных выражений для логов сервиса ui - очень не удобно и легко ошибиться
+
+```
+<filter service.ui>
+  @type parser
+  format /\[(?<time>[^\]]*)\]  (?<level>\S+) (?<user>\S+)[\W]*service=(?<service>\S+)[\W]*event=(?<event>\S+)[\W]*(?:path=(?<path>\S+)[\W]*)?request_id=(?<request_id>\S+)[\W]*(?:remote_addr=(?<remote_addr>\S+)[\W]*)?(?:method= (?<method>\S+)[\W]*)?(?:response_status=(?<response_status>\S+)[\W]*)?(?:message='(?<message>[^\']*)[\W]*)?/
+  key_name log
+</filter>
+```
+
+Более удобно это использование grok шалонов. grok’и - это именованные шаблоны регулярных выражений (очень похоже на функции). Можно использовать готовый regexp, просто сославшись на него как на функцию.
+
+
+
+
 * Визуализация логов
 * Сбор структурированных логов
 
