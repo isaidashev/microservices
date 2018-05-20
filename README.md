@@ -45,6 +45,7 @@ Kibana -  визуализация от компании Elastic. Интерфе
 ```
 
 * Инфо
+
 Конфиг /etc/docker/daemon.json или опция --log-driver json-file. Посмотреть лог при этом можно tail -f $(docker inspect -f {{.LogPath}} dockerpuma_ui_1) или в папке с контейнером.
 
 Journald-драйвер - пишет в системный лог.
