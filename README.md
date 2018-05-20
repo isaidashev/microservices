@@ -18,14 +18,33 @@ EFK - elasticksearch, Fluentd, kibana
 
 Более удобно это использование grok шалонов. grok’и - это именованные шаблоны регулярных выражений (очень похоже на функции). Можно использовать готовый regexp, просто сославшись на него как на функцию.
 
-
-
+```
+<filter service.ui>
+  @type parser
+  format grok
+  grok_pattern service=%{WORD:service} \| event=%{WORD:event} \| request_id=%{GREEDYDATA:request_id} \| message='%{GREEDYDATA:message}'
+  key_name message
+  reserve_data true
+</filter>
+```
 
 * Визуализация логов
+
+Kibana -  визуализация от компании Elastic. Интерфейс доступен по порту 5601. Для сбора логов от fluentd нужно задать патерн fluentd-*
+
 * Сбор структурированных логов
 
-* Сбор логов с Docker контейнеров
+Фильтр для fluentd
 
+```
+<filter service.post>
+  @type parser
+  format json
+  key_name log
+</filter>
+```
+
+* Инфо
 Конфиг /etc/docker/daemon.json или опция --log-driver json-file. Посмотреть лог при этом можно tail -f $(docker inspect -f {{.LogPath}} dockerpuma_ui_1) или в папке с контейнером.
 
 Journald-драйвер - пишет в системный лог.
