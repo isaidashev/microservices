@@ -2,7 +2,7 @@ version: '3.5'
 services:
 
   mongo:
-    image: mongo:${MONGO_VERSION}
+    image: mongo:3.2
     deploy:
       placement:
         constraints:
