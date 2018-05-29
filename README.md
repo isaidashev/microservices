@@ -1,11 +1,50 @@
 ---
 HW 24
 ---
+ELK - elasticksearch, greylog, kibana
+EFK - elasticksearch, Fluentd, kibana
+
 * Сбор не структурированых логов
+
+Использование регулярных выражений для логов сервиса ui - очень не удобно и легко ошибиться
+
+```
+<filter service.ui>
+  @type parser
+  format /\[(?<time>[^\]]*)\]  (?<level>\S+) (?<user>\S+)[\W]*service=(?<service>\S+)[\W]*event=(?<event>\S+)[\W]*(?:path=(?<path>\S+)[\W]*)?request_id=(?<request_id>\S+)[\W]*(?:remote_addr=(?<remote_addr>\S+)[\W]*)?(?:method= (?<method>\S+)[\W]*)?(?:response_status=(?<response_status>\S+)[\W]*)?(?:message='(?<message>[^\']*)[\W]*)?/
+  key_name log
+</filter>
+```
+
+Более удобно это использование grok шалонов. grok’и - это именованные шаблоны регулярных выражений (очень похоже на функции). Можно использовать готовый regexp, просто сославшись на него как на функцию.
+
+```
+<filter service.ui>
+  @type parser
+  format grok
+  grok_pattern service=%{WORD:service} \| event=%{WORD:event} \| request_id=%{GREEDYDATA:request_id} \| message='%{GREEDYDATA:message}'
+  key_name message
+  reserve_data true
+</filter>
+```
+
 * Визуализация логов
+
+Kibana -  визуализация от компании Elastic. Интерфейс доступен по порту 5601. Для сбора логов от fluentd нужно задать патерн fluentd-*
+
 * Сбор структурированных логов
 
-* Сбор логов с Docker контейнеров
+Фильтр для fluentd
+
+```
+<filter service.post>
+  @type parser
+  format json
+  key_name log
+</filter>
+```
+
+* Инфо
 
 Конфиг /etc/docker/daemon.json или опция --log-driver json-file. Посмотреть лог при этом можно tail -f $(docker inspect -f {{.LogPath}} dockerpuma_ui_1) или в папке с контейнером.
 
