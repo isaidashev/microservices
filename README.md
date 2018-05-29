@@ -1,5 +1,184 @@
 ---
-HW 24
+HW 27
+---
+
+Задание со *
+
+Согласно опции масштабирования `mode: replicated` node-exporter запустился на всех машинах. Все новые реплики сервисов запустились на новом worker.
+
+Для нескольких вариантов окружений можно использовать определение файла переменных:
+
+```
+prometheus:
+  image: ${USER_NAME}/prometheus
+  env_file:
+     - .env
+```
+далее в нескольких файлах env указать необходимые переменные в зависимости от окружения в файле docker-compose.override.yml.
+
+Или попровывать передать само название файла через переменную в зависимости от окружения.
+
+Создание хостов для SWARM
+```
+docker-machine create --driver google \
+   --google-project  docker-1948171 \
+   --google-zone europe-west1-b \
+   --google-machine-type g1-small \
+   --google-machine-image $(gcloud compute images list --filter ubuntu-1604-lts --uri) \
+   master-1
+```
+Инициализация docker SWARM
+
+```
+docker swarm init
+```
+Вывод команды и ввод нод в кластер:
+
+```
+docker swarm join --token SWMTKN-1-3eoop9he6otjcgjhmbxl99h4s75g8ps3vu1v75b181h0b2oued 10.0.0.3:2377
+```
+
+Генерация token для подключения master или worker:
+
+```
+docker swarm join-token manager/worker
+```
+Проверка состояние кластера:
+
+```
+docker node ls
+```
+
+Сервисы и их зависимости объединяются в STACK. STACK описывается в виде yml формата как в compose.
+
+Управление Stack:
+
+```
+docker stack deploy/rm/services/ls STACK_NAME
+```
+
+Запуск STACK `docker stack deploy  --compose-file docker-compose.yml ENV` но SWARM не поддерживает описание переменных, но для этого можно использовать обходное решение:
+
+```
+docker stack deploy --compose-file=<(docker-compose -f docker-compose.yml config 2>/dev/null) DEV
+```
+
+Ограничения размещения определяются с помощьюл огических действий со значениями label-ов (медатанных) нод и docker-engine’ов Обращение к встроенным label’ам нод - node.*  Обращение к заданным в ручную label’ам нод - node.labels*  Обращениек label’ам engine - engine.labels.*
+
+Обращение к встроенным label’ам нод - node.*   
+Обращение к заданным вручную label’ам нод - node.labels*   
+Обращение к label’ам engine - engine.labels.*
+ 
+Примеры:
+-
+node.labels.reliability == high
+-
+node.role != manager
+-
+engine.labels.provider == google
+
+
+Назначение лейблов:
+
+```
+docker node update --label-add reliability=high master-1
+```
+SWARM не умеет пока фильтровать вывод по label но можно выполнить:
+
+```
+docker node ls -q | xargs docker node inspect  -f '{{ .ID }} [{{ .Description.Hostname }}]: {{ .Spec.Labels }}'
+```
+
+Масштабирование сервисов:
+
+1. replicated mode - запустить определенное число задач
+(default)
+
+2. global mode - запустить задачу на каждой ноде
+
+```
+deploy:
+  mode: replicated
+  replicas: 2
+```
+Управление кол-вом запускаемых сервисов в на лету:
+
+```
+docker service scale DEV_ui=3
+docker service update --replicas 3 DEV_ui
+```
+
+Выключить все задачи сервиса:
+
+```
+docker service update --replicas 0 DEV_ui
+```
+Выяснить ID контейнера можно:
+
+```
+docker inspect $(docker stack ps swarm -q --filter "Name=swarm_ui.1") --format "{{.Status.ContainerStatus.ContainerID}}"
+```
+
+Параметры деплоя:
+
+1. parallelism - cколько контейнеров (группу) обновить
+одновременно?
+2. delay - задержка между обновлениями групп контейнеров  
+3. order - порядок обновлений (сначала убиваем старые и
+запускаем новые или наоборот) (только в compose 3.4) 
+
+Обработка ошибочных ситуаций:
+
+4. failure_action - что делать, если при обновлении возникла ошибка
+5.  monitor - сколько следить за обновлением, пока не признать его
+удачным или ошибочным
+6. max_failure_ratio - сколько раз обновление может пройти с
+ошибкой перед тем, как перейти к failure_action
+
+* rollback - откатить все задачи на предыдущую версию
+* pause (default) -  приостановить обновление
+* continue - продолжить обновле
+
+
+```
+service:
+    image: svc
+    deploy:
+      update_config:
+        parallelism: 2  
+        delay: 5s
+        failure_action: rollback
+        monitor: 5s
+        max_failure_ratio: 2
+        order: start-firs
+```
+
+** Ограничение ресурсов resources limits
+
+```
+resources:
+        limits:
+          cpus: '0.50'
+          memory: 150M
+```
+
+По умолчанию swarm контейнер запускает даже если ты его остановил, такую политику можно изменить с помощью Restart policy
+
+```
+restart_policy:
+  condition: on-failure
+  max_attempts: 10
+  delay: 1s
+```
+
+Использование нескольких докер файлов
+
+```
+docker stack deploy --compose-file=<(docker-compose -f docker-compose.monitoring.yml -f docker-compose.yml config 2>/dev/null)  DEV
+```
+
+---
+HW 25
 ---
 ELK - elasticksearch, greylog, kibana
 EFK - elasticksearch, Fluentd, kibana

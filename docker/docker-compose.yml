@@ -1,80 +1,88 @@
 version: '3.5'
 services:
 
-  post_db:
-    image: mongo:3.2
+  mongo:
+    image: mongo:${MONGO_VERSION}
+    deploy:
+      placement:
+        constraints:
+          - node.labels.reliability == high
     volumes:
-      - post_db:/data/db
+      - mongo_data:/data/db
     networks:
       back_net:
         aliases:
           - post_db
           - comment_db
 
-  mongodb_exporter:
-    image: ${USERNAME}/mongodb_exporter
-    networks:
-      back_net:
-    command: ["-mongodb.uri", "post_db"]
-
-  ui:
-    image: ${USERNAME}/ui
-    environment:
-      - POST_SERVICE_HOST=post
-      - POST_SERVICE_PORT=5000
-      - COMMENT_SERVICE_HOST=comment
-      - COMMENT_SERVICE_PORT=9292
-    ports:
-      - ${HOST_PORT_UI}:${CONT_PORT_UI}/tcp
-    logging:
-      driver: "fluentd"
-      options:
-        fluentd-address: localhost:24224
-        tag: service.ui
-    networks:
-      front_net:
-
   post:
-    image: ${USERNAME}/post
-    environment:
-      - POST_DATABASE_HOST=post_db
-      - POST_DATABASE=posts
-    depends_on:
-      - post_db
-    ports:
-      - "5000:5000"
-    logging:
-      driver: "fluentd"
-      options:
-        fluentd-address: localhost:24224
-        tag: service.post
+    image: ${USER_NAME}/post:${POST_VERSION}
+    deploy:
+      mode: replicated
+      replicas: 3
+      update_config:
+        delay: 10s
+        parallelism: 2
+        failure_action: rollback
+      placement:
+        constraints:
+          - node.role == worker
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        delay: 1s
+      resources:
+        limits:
+          cpus: '0.30'
+          memory: 300M
     networks:
-      front_net:
-      back_net:
+      - front_net
+      - back_net
 
   comment:
-    image: ${USERNAME}/comment
+    image: ${USER_NAME}/comment:${COMMENT_VERSION}
+    deploy:
+      mode: replicated
+      replicas: 3
+      update_config:
+        delay: 10s
+        parallelism: 2
+        failure_action: rollback
+      placement:
+        constraints:
+          - node.role == worker
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        delay: 1s
+      resources:
+        limits:
+          cpus: '0.30'
+          memory: 300M
     networks:
-      front_net:
-      back_net:
+      - front_net
+      - back_net
+
+  ui:
+    image: ${USER_NAME}/ui:${UI_VERSION}
+    deploy:
+      replicas: 3
+      mode: replicated
+      update_config:
+        delay: 5s
+        parallelism: 1
+        failure_action: rollback
+      placement:
+        constraints:
+          - node.role == worker
+    ports:
+      - "${UI_PORT}:9292/tcp"
+    networks:
+      - front_net
 
 volumes:
-  post_db:
+  mongo_data: {}
 
 networks:
-  back_net:
-    name: back_net
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        -
-          subnet: 10.0.2.0/24
-  front_net:
-    name: front_net
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        -
-          subnet: 10.0.1.0/24
+  back_net: {}
+  front_net: {}
