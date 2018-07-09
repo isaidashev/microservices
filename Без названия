@@ -1,0 +1,5 @@
+print("Hello Word")
+
+import simple_draw as sd
+
+sd.circle(sd.get_point(200, 200), 100)
